@@ -1,7 +1,17 @@
-import { Beach } from '@src/models/beach';
+import { Beach, BeachPosition } from '@src/models/beach';
 
 describe('Beaches functional tests', () => {
-  beforeAll(async () => await Beach.deleteMany({}));
+  beforeAll(async () => {
+    await Beach.deleteMany({});
+    const defaultBeach = {
+      lat: -33.792726,
+      lng: 151.289824,
+      name: 'Manly',
+      position: BeachPosition.E,
+    };
+    const beach = new Beach(defaultBeach);
+    await beach.save();
+  });
 
   describe('When creating a beach', () => {
     it('should create a beach with success', async () => {
